@@ -30,7 +30,7 @@ Given a positive integer, output its complement number. The complement strategy 
 
 ![取反操作](./images/May-Week1-4-0.png)
 
-不同的编程语言其数据表达方式不同，即不同的系统int型数据占用的字节数不同。这就需要根据语言设计不同的算法来控制高bit位的取反。数在计算机中的表达方式有助于理解题意，即[原码、反码、补码](https://leetcode.com/problems/complement-of-base-10-integer/)的知识，当然本题目并不涉及这些知识。我们只需要知道①如果直接使用取反操作，那么高位的bit位也被取反操作了，我们需要将高位bit位再次取反，以恢复其本来状态。②可以直接使用之前讨论过的**半加运算符**即**异或运算**对正数的不包含前导位0的部分进行直接取反操作如下图所示。
+不同的编程语言其数据表达方式不同，即不同的系统int型数据占用的字节数不同。这就需要根据语言设计不同的算法来控制高bit位的取反。数在计算机中的表达方式有助于理解题意，即[原码、反码、补码](https://leetcode.com/problems/complement-of-base-10-integer/)的知识，当然本题目并不涉及这些知识。我们只需要知道①如果直接使用取反操作，那么高位的bit位也被取反操作了，我们需要将高位bit位再次取反，以恢复其本来状态。②可以直接使用之前讨论过的**半加运算符**即**异或运算**（[参考另一篇](https://blog.csdn.net/weixin_46391502/article/details/105852745)）对正数的不包含前导位0的部分进行直接取反操作如下图所示。
 
 ![异或运算](./images/May-Week1-4-1.png)
 
