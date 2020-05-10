@@ -52,11 +52,9 @@ If the town judge exists and can be identified, return the label of the town jud
 
 **分析：**
 
-
+最简单的想法就是，遍历一次列表的同时构建两个字典，一个字典记录`trust[i][0]`被信任的次数。一个字典记录`trust[i][1]`是否相信别人。然后遍历整个人员N，若该索引人被信任了N-1次，并且没在另一个字典中出现，那么这个人就是法官。否则返回-1.
 
 **方法二：**
-
-有一条数学性质，完全平方数是一系列奇数之和：
 
 
 
