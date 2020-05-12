@@ -52,15 +52,11 @@ If the town judge exists and can be identified, return the label of the town jud
 
 **分析：**
 
+如下图所示：假设3是法官，那么除了3自己，所有的人都相信3（如红色的1所示），并且3不相信任何人（如浅橙色的空白所示）。
+
+<img src="./images/May-Week2-3.png" alt="分析图" style="zoom:50%;" />
+
 最简单的想法就是，遍历一次列表的同时构建两个字典，一个字典记录`trust[i][0]`被信任的次数。一个字典记录`trust[i][1]`是否相信别人。然后遍历整个人员N，若该索引人被信任了N-1次，并且没在另一个字典中出现，那么这个人就是法官。否则返回-1.
-
-**方法二：**
-
-
-
-**方法三：**
-
-
 
 
 Python3 代码如下：
@@ -86,10 +82,5 @@ class Solution:
             if index not in count: continue
             if (index not in believe) and (count[index] == N - 1): return index
         return -1
-
-# 方法二
-# Runtime: 40ms
-# Memory Usage: 13.8MB
-
 ```
 
