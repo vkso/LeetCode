@@ -46,6 +46,8 @@ Python3 代码和 C 语言代码如下：
 
 ```python
 # python
+# Runtime: 68ms
+# Memory Usage: 16MB
 class Solution:
   def singleNumber(self, nums: List[int]) -> int:
     mark = 0
