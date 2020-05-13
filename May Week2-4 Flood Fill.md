@@ -63,7 +63,7 @@ From the center of the image (with position (sr, sc) = (1, 1)), all pixels conne
 ![Explaination2](./images/May-Week2-4-2.jpg)
 
 这里可以更改递归函数`fill()`中的颜色修改顺序。上述问题的出现是因为递归的出口只判断了当前像素点的值，并没有判断过是否修改。若在进入递归之前将改点处的值改为`-1`（可以是`0-65535`之外的任意值），在出递归的时候将该点的值改为`newColor`。这样就不用考虑颜色判断的问题。递归也不会陷入死循环了。**该方法是一种回溯思想。**详细资料可以参考 [回溯思想](https://labuladong.gitbook.io/algo/suan-fa-si-wei-xi-lie/hui-su-suan-fa-xiang-jie-xiu-ding-ban)。
-本题python示例代码如下：
+回溯python示例代码如下：
 
 ```python
     def fill(self, sr, sc, newColor, oldColor, image):
