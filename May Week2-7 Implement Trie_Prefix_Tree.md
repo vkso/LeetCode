@@ -9,18 +9,18 @@ Implement a trie with `insert`,`search`,and `startsWith` methods.
 
 **Example 1:**
 
-> ```python
-> Trie trie = new Trie()
-> 
-> trie.insert("apple")
-> trie.search("apple")    # return true
-> trie.search("app")    # return false
-> trie.startsWith("app")    # return true
-> trie.insert("app")
-> trie.search("app")    # return true
-> ```
->
-> 
+```python
+Trie trie = new Trie()
+
+trie.insert("apple")
+trie.search("apple")    # return true
+trie.search("app")    # return false
+trie.startsWith("app")    # return true
+trie.insert("app")
+trie.search("app")    # return true
+```
+
+
 
 ### **分析：**
 
