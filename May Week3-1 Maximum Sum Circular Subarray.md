@@ -73,7 +73,7 @@ The first case can be handled by the good old Kadane's algorithm. However, is th
 
 ![explanation](./images/May-Week3-1-2.png)
 
-已知一个数组的和(sum)是固定的，要使得蓝色Max和Subarray部分最大，那么红色Min subarray一定最小。利用**Kadane算法**变可以求出。**(关于Kadane算法的解释，可以看我的另一篇博文)**
+已知一个数组的和(sum)是固定的，要使得蓝色Max和Subarray部分最大，那么红色Min subarray一定最小。利用**Kadane算法**变可以求出。**(关于Kadane算法的解释，可以看我的另一篇博文"LeetCode 53")**
 
 看了大神的代码，再看自己的，实在是不想放上来了。。。还需努力啊~
 
