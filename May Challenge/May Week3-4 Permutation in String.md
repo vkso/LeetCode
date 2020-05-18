@@ -1,5 +1,7 @@
 ![Question](./images/May-Week3-4-1.png)
 
+[题目连接](https://leetcode.com/problems/permutation-in-string/)
+
 ### **分析：**
 
 此题跟之前的一题是一样的，均是采用滑动窗口思想和哈希表的应用。这里不做过多描述，可以参考之前的博文LeetCode 17 May。
