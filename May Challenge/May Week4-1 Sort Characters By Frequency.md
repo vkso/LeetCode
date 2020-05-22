@@ -48,8 +48,12 @@ Note that 'A' and 'a' are treated as two different characters.
 
 本题并没有找到比较巧妙的解法，网络上的答案大同小异。这里主要利用字典来存储每个字符出现的次数，并对字典按照值大小排序。按照出现顺序，构建一个新串并返回。
 
+Note: 使用字典、列表都可以进行对应统计操作
+
 ```python
 # 方法一
+# Runtime: 60ms
+# Memory Usage: 15.2MB
 class Solution:
     def frequencySort(self, s: str) -> str:
         totalDic = {}
@@ -61,6 +65,26 @@ class Solution:
                 totalDic[x] += 1
         
         sortedlist = sorted(totalDic.items(), key=lambda item:item[1], reverse=True)
+        
+        for c in sortedlist:
+            res += (c[0] * c[1])
+        return res
+      
+# 方法二，使用数组存储键值对
+# Runtime: 44ms
+# Memroy Usage: 15.1MB
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        totalHash = [0] * 128
+        totalHashPair = []
+        res = ''
+        for x in s:
+            totalHash[ord(x)] += 1
+        for index, x in enumerate(totalHash):
+            if x > 0:
+                totalHashPair.append([chr(index), x])
+        
+        sortedlist = sorted(totalHashPair, key=lambda item:item[1], reverse=True)
         
         for c in sortedlist:
             res += (c[0] * c[1])
