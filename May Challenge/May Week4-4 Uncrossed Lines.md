@@ -52,6 +52,8 @@ Output: 2
 
 当循环到两个字符串的`i`和`j`节点位置的时候，需要判断`[i][j-1]`（红色方框）和`[i-1][j]`（蓝色方框）状态时候的最大数量，取其最大值。最后判断最后面的两个字符是否相等，相等则对`[i-1][j-1]`状态进行+1操作（这里需要注意，因为题目说的是不能出现交叉现象，因此对`[i-1][j-1]`位置进行+1）。
 
+这里使用递归的方法应该也是可以解题的，只是如果不优化，速度会很慢。（递归方法运行Wrong Answer，暂时还没想到是哪里的问题。留下来抽空解决了。。。）
+
 ```python
 # 动态规划
 class Solution:
@@ -66,5 +68,14 @@ class Solution:
                 if A[i-1] == B[j-1]:
                     dp[i][j] = max(dp[i-1][j-1] + 1, dp[i][j])
         return dp[m][n]
+      
+# 递归
+class Solution:
+    def maxUncrossedLines(self, A: List[int], B: List[int]) -> int:
+        if not A or not B: return 0
+        res = max(self.maxUncrossedLines(A[1:], B), self.maxUncrossedLines(A, B[1:]))
+        if A[0] == B[0]:
+            res += 1
+        return res
 ```
 
