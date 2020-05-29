@@ -63,8 +63,8 @@ class Solution:
         
         states[index] = 1
         
-        for tem in Graph[index]:
-            if self.dfs(tem, states, Graph):
+        for path in Graph[index]:
+            if self.dfs(path, states, Graph):
                 return True
         
         states[index] = 2
