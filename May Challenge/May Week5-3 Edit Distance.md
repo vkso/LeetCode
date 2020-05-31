@@ -38,7 +38,7 @@ exection -> execution (insert 'u')
 
 问题可以被划分为子问题：
 
-1. 如果word1和word2末尾字符相同，那么可以直接考虑其前面的部分
+1. 如果word1[-1] == word2[-1]，那么可以直接考虑其前面的部分
 2. word1[:-2]与word2比较，可以通过一次delete实现
 3. word1与word2[:-2]，可以通过一次insert实现
 4. word1[:-2]与word2[:-2]，可以通过一次replace实现
