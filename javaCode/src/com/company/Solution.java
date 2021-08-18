@@ -1,4 +1,5 @@
 package com.company;
+import java.lang.Math;
 
 public class Solution {
     /**
@@ -111,6 +112,30 @@ public class Solution {
             return p == q;
         }
         return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+    /**
+     * 110. 平衡二叉树
+     * @param root：一棵树的根节点
+     * @return 返回true：表示root是平衡二叉树，false表示root不是平衡二叉树
+     */
+    public boolean isBalanced(TreeNode root) {
+        return travel(root) != -1;
+    }
+
+    // 前序遍历计算树的左右子树高度差
+    public int travel(TreeNode root) {
+        if (null == root) return 0;    // 如果当前节点是空节点，则表示深度为0
+        int left = travel(root.left);
+        if (left == -1) return -1;    // 如果左子树的高度为-1，表示左子树不是平衡二叉树
+        int right = travel(root.right);
+        if (right == -1) return -1;    // 如果右子树的高度为-1，表示左子树不是平衡二叉树
+
+        if (Math.abs(left - right) < 2) {
+            return Math.max(left, right) + 1;
+        } else {
+            return -1;
+        }
     }
 
     /**
