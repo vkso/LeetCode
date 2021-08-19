@@ -138,6 +138,35 @@ public class Solution {
         }
     }
 
+
+    /**
+     * 111. 二叉树的最小深度
+     * @param root：二叉树的根节点
+     * @return 返回二叉树的最小深度
+     */
+    public int minDepth(TreeNode root) {
+        // 如果root是空节点，返回0：表示没有深度
+        if (null == root) {
+            return 0;
+        }
+        // 如果root节点是叶子节点，返回1：表示深度为1
+        if (null == root.left && null == root.right) {
+            return 1;
+        }
+
+        int res = Integer.MAX_VALUE;
+        // 如果左孩子不是空节点，那么res值暂时设置为做孩子的最小深度
+        if (null != root.left) {
+            res = Math.min(minDepth(root.left), res);
+        }
+        // 如果右孩子不是空节点，那么比较右子树的深度与左子树的深度，取较小的值
+        if (null != root.right) {
+            res = Math.min(minDepth(root.right), res);
+        }
+        // 最终返回的深度需要 + 1，因为存在一个非空的父节点root
+        return res + 1;
+    }
+
     /**
      * 852. 山脉数组的峰顶索引
      * @param arr
