@@ -1,5 +1,7 @@
 package com.company;
 import java.lang.Math;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Solution {
     /**
@@ -165,6 +167,26 @@ public class Solution {
         }
         // 最终返回的深度需要 + 1，因为存在一个非空的父节点root
         return res + 1;
+    }
+
+    /**
+     * 144. 二叉树的前序遍历
+     * @param root
+     * @return 前序遍历序列List<Integer></Integer>
+     */
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List res = new ArrayList<Integer>();
+        travel(root, res);
+        return res;
+    }
+
+    public void travel(TreeNode root, List<Integer> res) {
+        if (null == root) {
+            return ;
+        }
+        res.add(root.val);
+        travel(root.left, res);
+        travel(root.right, res);
     }
 
     /**
