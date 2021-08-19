@@ -1,4 +1,6 @@
 package com.company;
+import apple.laf.JRSUIUtils;
+
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
@@ -176,17 +178,38 @@ public class Solution {
      */
     public List<Integer> preorderTraversal(TreeNode root) {
         List res = new ArrayList<Integer>();
-        travel(root, res);
+        pre_travel(root, res);
         return res;
     }
 
-    public void travel(TreeNode root, List<Integer> res) {
+    public void pre_travel(TreeNode root, List<Integer> res) {
         if (null == root) {
             return ;
         }
         res.add(root.val);
-        travel(root.left, res);
-        travel(root.right, res);
+        pre_travel(root.left, res);
+        pre_travel(root.right, res);
+    }
+
+    /**
+     * 145. 二叉树的后续遍历
+     * @param root
+     * @return 后续遍历序列List<Integer></Integer>
+     */
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List res = new ArrayList<Integer>();
+        post_travel(root, res);
+        return res;
+
+    }
+
+    public void post_travel(TreeNode root, List<Integer> res) {
+        if (null == root) {
+            return ;
+        }
+        post_travel(root.left, res);
+        post_travel(root.right, res);
+        res.add(root.val);
     }
 
     /**
