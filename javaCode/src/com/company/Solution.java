@@ -4,6 +4,7 @@ import apple.laf.JRSUIUtils;
 import java.lang.Math;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Solution {
     /**
@@ -210,6 +211,42 @@ public class Solution {
         post_travel(root.left, res);
         post_travel(root.right, res);
         res.add(root.val);
+    }
+
+    /**
+     * 155. 最小栈
+     * 思路：添加一个辅助栈，用来存放最小值的历史（按照顺序存放曾经是最小的那些值）
+     */
+    class MinStack {
+        private Stack<Integer> dataStack;
+        private Stack<Integer> minStack;
+        /** initialize your structure here. */
+        public MinStack() {
+            dataStack = new Stack<Integer>();
+            minStack= new Stack<Integer>();
+        }
+
+        public void push(int val) {
+            dataStack.push(val);
+            if (minStack.isEmpty() || val <= minStack.peek()) {
+                minStack.push(val);
+            }
+        }
+
+        public void pop() {
+            int x = dataStack.pop();
+            if (minStack.peek() == x) {
+                minStack.pop();
+            }
+        }
+
+        public int top() {
+            return dataStack.peek();
+        }
+
+        public int getMin() {
+            return minStack.peek();
+        }
     }
 
     /**
