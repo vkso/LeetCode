@@ -2,10 +2,10 @@ import com.company.Solution;
 
 public class Main {
     public static void main(String[] args) {
-        Solution mySol = new Solution();
-        int[] arr = {3, 5, 3, 2, 0};
+        int left = 1;
+        int right = 1;
 
-        System.out.println(mySol.peakIndexInMountainArray(arr));
-
+        System.out.println((left + right) >> 2);
+        System.out.println(2 >> 2);
     }
 }

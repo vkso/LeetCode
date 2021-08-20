@@ -120,6 +120,28 @@ public class Solution {
     }
 
     /**
+     * 108. 将有序数组转换为二叉搜索树
+     * @param nums：绝对递增数组Integer
+     * @return：返回一个二叉搜索树的根节点
+     */
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return sortedArrayToBSTdfs(nums, 0, nums.length-1);
+    }
+
+    public TreeNode sortedArrayToBSTdfs(int[] nums, int left, int right) {
+        if (left > right) {
+            return null;
+        }
+
+        int mid = (left + right) >> 1;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = sortedArrayToBSTdfs(nums, left, mid-1);
+        root.right = sortedArrayToBSTdfs(nums, mid+1, right);
+
+        return root;
+    }
+
+    /**
      * 110. 平衡二叉树
      * @param root：一棵树的根节点
      * @return 返回true：表示root是平衡二叉树，false表示root不是平衡二叉树
