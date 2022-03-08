@@ -72,6 +72,41 @@ public class Solution {
     }
 
     /**
+     * 3. 无重复字符的最长子串
+     * @param s
+     * @return 返回最长子串的长度
+     */
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() <= 1) {
+            return s.length();
+        }
+    }
+
+    /**
+     * 19. 删除链表的倒数第N个结点
+     * @param head
+     * @param n
+     * @return 返回链表的表头结点
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        if (null == head || null == head.next) {
+            return null;
+        }
+
+        ListNode hhead = new ListNode(0, head);
+        ListNode slow = hhead;
+        ListNode fast = head;
+
+        while (null != fast) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        slow.next = slow.next.next;
+        return hhead.next;
+    }
+
+    /**
      * 203. 移除链表元素
      * @param head
      * @param val
@@ -271,6 +306,28 @@ public class Solution {
         }
     }
 
+
+    /**
+     * 617. 合并二叉树
+     * @param root1
+     * @param root2
+     * @return: 返回合并后的二叉树
+     * Tips: 两个节点的二叉树先序遍历
+     */
+    public TreeNode mergeTrees(TreeNode root1, TreeNode root2) {
+        if (null == root1) {
+            return root2;
+        }
+        if (null == root2) {
+            return root1;
+        }
+
+        TreeNode merged = new TreeNode(root1.val + root2.val);
+        merged.left = mergeTrees(root1.left, root2.left);
+        merged.right = mergeTrees(root1.right, root2.right);
+        return merged;
+    }
+
     /**
      * 852. 山脉数组的峰顶索引
      * @param arr
@@ -291,6 +348,46 @@ public class Solution {
         return left;
     }
 
+
+    /**
+     * 557. 反转字符串中的单词III
+     * @param s
+     * @return: 返回逆序单词的字符串
+     */
+    public String reverseWords(String s) {
+        String[] strArrays = s.split(" ");
+        StringBuilder res = new StringBuilder();
+
+        for (String tmp: strArrays) {
+            StringBuilder sb = new StringBuilder(tmp);
+            res.append(sb.reverse());
+            res.append(" ");
+        }
+
+        res.deleteCharAt(res.length()-1);
+        return res.toString();
+    }
+
+    /**
+     * 876. 链表的中间节点
+     * @param head
+     * @return 返回链表的中间节点
+     */
+    public ListNode middleNode(ListNoe head) {
+        ListNode fast = head;
+        ListNode slow = head;
+
+        while (null != fast.next && null != fast.next.next) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        if (null == fast.next) {
+            return slow;
+        } else {
+            return slow.next;
+        }
+    }
 }
 
 
