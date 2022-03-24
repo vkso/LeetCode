@@ -1,10 +1,9 @@
 package com.company;
 import apple.laf.JRSUIUtils;
 
+import javax.print.attribute.EnumSyntax;
 import java.lang.Math;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class Solution {
     /**
@@ -76,11 +75,11 @@ public class Solution {
      * @param s
      * @return 返回最长子串的长度
      */
-    public int lengthOfLongestSubstring(String s) {
-        if (s.length() <= 1) {
-            return s.length();
-        }
-    }
+//    public int lengthOfLongestSubstring(String s) {
+//        if (s.length() <= 1) {
+//            return s.length();
+//        }
+//    }
 
     /**
      * 19. 删除链表的倒数第N个结点
@@ -104,6 +103,47 @@ public class Solution {
 
         slow.next = slow.next.next;
         return hhead.next;
+    }
+
+    /**
+     * 21. 合并两个有序链表
+     * @param l1
+     * @param l2
+     * @return 返回合并后的链表头结点
+     */
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        // 如果有一个链表是空，那么直接返回另一个链表的头结点即可
+        if (null == l1) {
+            return l2;
+        }
+        if (null == l2) {
+            return l1;
+        }
+        // 构造一个新的链表头res，最终返回res.next 作为全新的链表
+        // 构造一个表头res的移动指针，记录res链表的链尾结点
+        ListNode resTemp = new ListNode();
+        ListNode res = resTemp;
+
+        // 判断当前l1和l2结点的val值的大小，去小的那个追加到res链表尾，直到l1或l2为空
+        while (null != l1 && null != l2) {
+            if (l1.val < l2.val) {
+                resTemp.next = l1;
+                l1 = l1.next;
+                resTemp = resTemp.next;
+            } else {
+                resTemp.next = l2;
+                l2 = l2.next;
+                resTemp = resTemp.next;
+            }
+        }
+        // 判断l1和l2哪一个是空链表，直接将另一个非空的链表追加到res上
+        if (null != l1) {
+            resTemp.next = l1;
+        }
+        if (null != l2) {
+            resTemp.next = l2;
+        }
+        return res.next;
     }
 
     /**
@@ -306,6 +346,42 @@ public class Solution {
         }
     }
 
+    /**
+     * 567. 字符串的排列
+      * @param s1
+     * @param s2
+     * @return: 判断s2是否包含s1的排列（s1的排列之一，是不是s2的子串）
+     */
+    public boolean checkInclusion(String s1, String s2) {
+        int n = s1.length(), m = s2.length();
+        // 如果 子串s1的长度比s2还长，那么必然不符合题意，直接返回false
+        if (n > m) {
+            return false;
+        }
+
+        // cnt1 和 cnt2 分别记录 s1和长度为n的s2子串中的不同字符数量（全是小写字符）
+        int[] cnt1 = new int[26];
+        int[] cnt2 = new int[26];
+
+        for (int i = 0; i < n; i++) {
+            ++cnt1[s1.charAt(i) - 'a'];
+            ++cnt2[s2.charAt(i) - 'a'];
+        }
+
+        if (Arrays.equals(cnt1, cnt2)) {
+            return true;
+        }
+
+        for (int i = n; i < m; i++) {
+           ++cnt2[s2.charAt(i) - 'a'];
+           --cnt2[s2.charAt(i-n) - 'a'];
+           if (Arrays.equals(cnt1, cnt2)) {
+               return true;
+           }
+        }
+        return false;
+    }
+
 
     /**
      * 617. 合并二叉树
@@ -373,7 +449,7 @@ public class Solution {
      * @param head
      * @return 返回链表的中间节点
      */
-    public ListNode middleNode(ListNoe head) {
+    public ListNode middleNode(ListNode head) {
         ListNode fast = head;
         ListNode slow = head;
 
@@ -388,6 +464,316 @@ public class Solution {
             return slow.next;
         }
     }
+
+    /**
+     * 剑指 Offer 03. 数组中重复的数字
+     * @param nums
+     * @return
+     */
+    public int findRepeatNumber(int[] nums) {
+        Set<Integer> set = new HashSet<Integer>();
+        int repeat_num = -1;
+        for (int item: nums) {
+            if (!set.add(item)) {
+                repeat_num = item;
+                break;
+            }
+        }
+        return repeat_num;
+    }
+
+    /**
+     * 剑指Offer 04. 二维数组中的查找
+     * Tips: 从右上角 -> 左下角 寻找该数，寻找到边界 或 中间不符合条件的情况即返回false
+     * @param target
+     * @return
+     */
+    public boolean findNumberIn2DArray(int[][] matrix, int target) {
+        int r = matrix.length;
+
+        if (0 == r) {
+            return false;
+        }
+
+        int c = matrix[0].length;
+
+        for (int i = 0; i < r; i++) {
+            for (int j = c - 1; j >= 0; j--) {
+                if (matrix[i][j] == target) {
+                    return true;
+                } else if (matrix[i][j] > target) {
+                    continue;
+                } else {
+                    break;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 剑指 Offer 05. 字符串替换空字符
+     * @param s
+     * @return
+     */
+    public String replaceSpace(String s) {
+        int len = s.length();
+        if (0 == len) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < len; i++) {
+            char ch = s.charAt(i);
+            if (ch == ' ') {
+                sb.append("%20");
+            } else {
+                sb.append(ch);
+            }
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * 剑指Offer 06. 从尾到头打印链表
+     * @param head
+     * @return
+     */
+    public int[] reversePrint(ListNode head) {
+        if (null == head) {
+            int[] ret = new int[0];
+            return ret;
+        }
+        Stack<ListNode> stack = new Stack<>();
+        ListNode temp = head;
+        while (null != temp) {
+            stack.push(temp);
+            temp = temp.next;
+        }
+        int size = stack.size();
+        int[] print = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            print[i] = stack.pop().val;
+        }
+        return print;
+    }
+
+    /**
+     * 剑指offer 11. 旋转数组的最小数字
+     * Tips: 条件二分查找算法
+     * @param numbers
+     * @return
+     */
+    public int minArray(int[] numbers) {
+        int left = 0;
+        int right = numbers.length - 1;
+
+        while (left < right) {
+            int middle = left + (right - left) / 2;
+            if (numbers[middle] < numbers[right]) {
+                right = middle;
+            } else if (numbers[middle] > numbers[right]) {
+                left = middle + 1;
+            } else {
+                right -= 1;
+            }
+        }
+        return numbers[left];
+    }
+
+    /**
+     * 剑指 Offer 24. 翻转链表
+     * @param head
+     * @return
+     */
+    public ListNode reverseList(ListNode head) {
+        if (null == head) {
+            return head;
+        }
+        ListNode ret_head = new ListNode();
+        ret_head.next = null;
+        ListNode cruiser = head;
+
+        while (null != cruiser) {
+            ListNode tmp = new ListNode(cruiser.val);
+            tmp.next = ret_head.next;
+            ret_head.next = tmp;
+            cruiser = cruiser.next;
+        }
+
+        return ret_head.next;
+    }
+
+    public Node copyRandomList(Node head) {
+        if (null == head) {
+            return head;
+        }
+        Node ret_head = new Node(0);
+        Node cruiser_origin = head;
+        Node cruiser_ret = ret_head;
+
+        // 第一次遍历，基于next构建整张链表
+        while (null != cruiser_origin) {
+            Node tmp = new Node(cruiser_origin.val);
+            cruiser_ret.next = tmp;
+            cruiser_origin = cruiser_origin.next;
+        }
+
+        // 第二次遍历，基于整张链表构建random指向关系
+        cruiser_origin = head;
+        cruiser_ret = ret_head;
+        while (null != cruiser_origin) {
+            cruiser_ret.random = cruiser_origin.random;
+            cruiser_origin = cruiser_origin.next;
+        }
+
+        return ret_head;
+    }
+
+    /**
+     * 剑指Offer 32 - I. 从上到下打印二叉树
+     * 二叉树的按层遍历
+     * @param root
+     * @return
+     */
+    public int[] levelOrder(TreeNode root) {
+        if (null == root) {
+            return new int[0];
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            ans.add(node.val);
+            if (node.left != null) {
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+            }
+        }
+        int[] res = new int[ans.size()];
+        for (int i = 0; i < ans.size(); i++) {
+            res[i] = ans.get(i);
+        }
+        return res;
+    }
+
+    /**
+     * 剑指Offer 32 - II. 从上到下打印二叉树
+     * 区别于上一题，while循环内，多了一个for循环，用来记录当前队列的长度，
+     * 即每一个for循环都会将当前已知的队列西长度进行出队操作（即每一层的数量）
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder1(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        List<List<Integer>> res = new ArrayList<>();
+
+        if (null != root) {
+            queue.add(root);
+        }
+
+        while (!queue.isEmpty()) {
+            List<Integer> tmp = new ArrayList<>();
+            // 这个循环需要注意的是，由于queue在循环体内是动态变化的，所以，被注释的用法作为循环出口条件是不合适的
+            for (int i = queue.size(); i>0; i--) {
+//            for (int i = 0; i<queue.size(); i++) {
+                TreeNode node = queue.poll();
+                tmp.add(node.val);
+                if (null != node.left) queue.add(node.left);
+                if (null != node.right) queue.add(node.right);
+            }
+            res.add(tmp);
+        }
+        return res;
+    }
+
+
+    /**
+     * 剑指 Offer 53 - I. 在排序数组中查找数字I
+     * 区别于上一题，while循环内，多了一个for循环，用来记录当前队列的长度，
+     * 即每一个for循环都会将当前已知的队列西长度进行出队操作（即每一层的数量）
+     * @param nums
+     * @param target
+     * @return
+     */
+    public int search(int[] nums, int target) {
+        int count = 0;
+        if (nums.length == 0 || nums[0] > target) {
+            return count;
+        }
+        for (int item: nums) {
+            if (item < target) {
+                continue;
+            } else if (item == target) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 剑指offer 53-II. 0~n-1 中缺失的数字
+     * @param nums
+     * @return
+     */
+    public int missingNumber(int[] nums) {
+        int ret = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i) {
+                ret = i;
+                break;
+            }
+            ret = nums.length;
+        }
+        return ret;
+    }
+
+    /**
+     * 剑指 Offer 58-II. 左旋转字符串
+     * @param s
+     * @param n
+     * @return
+     */
+    public String reverseLeftWords(String s, int n) {
+       StringBuilder left = new StringBuilder(s.substring(0,n));
+       StringBuilder right = new StringBuilder(s.substring(n,s.length()));
+       StringBuilder ret = right.append(left);
+       return ret.toString();
+    }
+
+    /**
+     * 面试题50. 第一个只出现一次的字符
+     * Tips. 两次遍历字符串，分别统计次数和判断是否是第一次出现
+     * @param s
+     * @return
+     */
+    public char firstUniqChar(String s) {
+        char ret = ' ';
+        if (s.length() == 0) {
+            return ret;
+        }
+        int[] count = new int[26];
+        for (int i = 0; i < s.length(); i++) {
+            count[s.charAt(i) - 'a']++;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (count[s.charAt(i) - 'a'] == 1) {
+                ret = s.charAt(i);
+                break;
+            }
+        }
+        return ret;
+    }
+
+    // class solution ends.
 }
 
 
