@@ -584,6 +584,34 @@ public class Solution {
     }
 
     /**
+     * 剑指Offer 18. 删除链表的节点
+     * @param head
+     * @param val
+     * @return
+     */
+    public ListNode deleteNode(ListNode head, int val) {
+        if (null == head) {
+            return head;
+        }
+        if (head.val == val) {
+            return head.next;
+        }
+
+        ListNode pre = head;
+        ListNode cur = head.next;
+
+        while (null != cur && cur.val != val) {
+           pre = cur;
+           cur = cur.next;
+        }
+
+        if (null != cur) {
+            pre.next = cur.next;
+        }
+        return head;
+    }
+
+    /**
      * 剑指 Offer 24. 翻转链表
      * @param head
      * @return
@@ -758,6 +786,43 @@ public class Solution {
         return res;
     }
 
+    /**
+     * 剑指Offer 32 -III. 从上到下打印二叉树，按照之字形打印层次打印二叉树
+     * tips. 1. II中的方法，偶数层进行arraylist的逆序排列
+     * tips. 2. 利用 LinkedList 双端队列的特性进行奇偶层两端插入数据，自动实现逆序
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> levelOrder3(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+
+        if (null != root) {
+            queue.add(root);
+        }
+
+        while (!queue.isEmpty()) {
+            LinkedList<Integer> tmp = new LinkedList<>();
+            for (int i = queue.size(); i>0; i--) {
+                TreeNode node = queue.poll();
+                // 判断当前行是奇数行还是偶数行，选择性插入到链表的前端还是后端
+                if (res.size() % 2 == 0) {
+                    tmp.addLast(node.val);
+                } else {
+                    tmp.addFirst(node.val);
+                }
+                if (null != node.left) {
+                    queue.add(node.left);
+                }
+                if (null != node.right) {
+                    queue.add(node.right);
+                }
+            }
+            res.add(tmp);
+        }
+        return res;
+    }
+
 
     /**
      * 剑指 Offer 53 - I. 在排序数组中查找数字I
@@ -840,17 +905,3 @@ public class Solution {
 
     // class solution ends.
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
