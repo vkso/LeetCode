@@ -633,6 +633,71 @@ public class Solution {
     }
 
     /**
+     * 剑指Offer 27. 二叉树的镜像
+     * Tips: 使用辅助栈或者队列按层的方法遍历整个数，同时修改每个节点的左右孩子顺序，这里使用
+     * 栈或是队列都没有关系，只是存储当前的节点信息，与顺序无关
+     * @param root
+     * @return
+     */
+    public TreeNode mirrorTree(TreeNode root) {
+        if (null == root) {
+            return null;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        stack.add(root);
+
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            if (null != node.left) {
+                stack.add(node.left);
+            }
+            if (null != node.right) {
+                stack.add(node.right);
+            }
+            TreeNode tmp = node.left;
+            node.left = node.right;
+            node.right = tmp;
+        }
+        return root;
+    }
+
+    /**
+     * 使用递归的方法
+     * @param root
+     * @return
+     */
+    public TreeNode mirrorTree2(TreeNode root) {
+        if (null == root) {
+            return null;
+        }
+        // 暂时存储 root 左孩子的位置信息
+        TreeNode tmp = root.left;
+        // 由于递归函数返回的一定是root节点的位置信息，所以root的左孩子指向了root的右孩子
+        root.left = mirrorTree2(root.right);
+        // 由于左孩子的信息已经被修改了，所以这里只能使用tmp记录原来的信息，此时root的右孩子指向了左孩子，交换完成
+        root.right = mirrorTree2(tmp);
+        return root;
+    }
+
+    /**
+     * 剑指Offer 28. 对称的二叉树（判断）
+     * @param root
+     * @return
+     */
+    public boolean isSymmetric(TreeNode root) {
+        return null == root ? true : recur(root.left, root.right);
+    }
+    boolean recur(TreeNode L, TreeNode R) {
+        if (null == L && null == R) {
+            return true;
+        }
+        if (null == L || null == R || L.val != R.val) {
+            return false;
+        }
+        return recur(L.left, R.right) && recur(L.right, R.left);
+    }
+
+    /**
      * 剑指Offer 32 - I. 从上到下打印二叉树
      * 二叉树的按层遍历
      * @param root
