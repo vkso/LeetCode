@@ -561,6 +561,44 @@ public class Solution {
     }
 
     /**
+     * 剑指Offer 10-I. 斐波那契数列
+     * @param n
+     * @return
+     */
+    public int fib(int n) {
+        int a = 0;
+        int b = 1;
+        if (n == a || n == b) {
+            return n;
+        }
+
+        int tmp = 0;
+        for (int i = 1; i < n; i++) {
+            tmp = (a + b) % 1000000007;
+            a = b;
+            b = tmp;
+        }
+        return b;
+    }
+
+    /**
+     * 剑指Offer 10-II. 青蛙跳台阶问题
+     * Tips: 此类有多少种可能的问题，一般都有递推规律，本题的递推规律是f(n)种可能一定等于
+     * f(n-1) + f(n-2)，因此可以使用斐波那契数列的方式找到规律
+     * @param n
+     * @return
+     */
+    public int numWays(int n) {
+        int a = 1, b = 1, sum = 0;
+        for (int i = 0; i < n; i++) {
+            sum = (a + b) % 1000000007;
+            a = b;
+            b = sum;
+        }
+        return a;
+    }
+
+    /**
      * 剑指offer 11. 旋转数组的最小数字
      * Tips: 条件二分查找算法
      * @param numbers
@@ -904,4 +942,47 @@ public class Solution {
     }
 
     // class solution ends.
+
+    /**
+     * 算法面试题汇总：合并两个有序数组
+     * tips: ①逆序合并，②直接复制然后排序，③归并排序
+     */
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        System.arraycopy(nums2, 0, nums1, m, n);
+        Arrays.sort(nums1);
+    }
+
+    public void merge1(int[] nums1, int m, int[] nums2, int n) {
+        if (n == 0) {
+            return;
+        }
+        int i = m - 1;
+        int j = n - 1;
+        int end = nums1.length - 1;
+
+        while (j >= 0) {
+            nums1[end--] = (i >= 0 && nums1[i] > nums2[j] ? nums1[i--] : nums2[j--]);
+        }
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
