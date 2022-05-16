@@ -965,6 +965,51 @@ public class Solution {
         }
 
     }
+
+
+    public boolean isAlienSorted(String[] words, String order) {
+        int total_words = words.length;
+
+        if (total_words == 1) {
+            return true;
+        }
+
+        for (int i = 1; i < total_words; i++) {
+            if (wordFrontLessBack(words[i-1], words[i], order)) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 判断 word_front 和 word_back 按照 order 的字典序大小，如果
+     * word_front < word_back 返回 true，否则返回 false
+     * */
+    public boolean wordFrontLessBack(String word_front, String word_back, String order) {
+        int word_front_len = word_front.length();
+        int word_back_len = word_back.length();
+
+        int min_len = word_front_len > word_back_len ? word_back_len : word_front_len;
+
+        for (int i = 0; i < min_len; i++) {
+            System.out.println(word_front.charAt(i));
+            System.out.println(order.indexOf(word_front.charAt(i)));
+
+            System.out.println(word_back.charAt(i));
+            System.out.println(order.indexOf(word_back.charAt(i)));
+            if (order.indexOf(word_front.charAt(i)) < order.indexOf(word_back.charAt(i))) {
+                return true;
+            } else if (order.indexOf(word_front.charAt(i)) == order.indexOf(word_back.charAt(i))) {
+                continue;
+            } else {
+                return false;
+            }
+        }
+        return word_front_len <= word_back_len ? true : false;
+    }
 }
 
 
